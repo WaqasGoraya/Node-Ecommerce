@@ -1,4 +1,5 @@
 <%- include('../../partials/header') %>
+<link rel="stylesheet" href="css/auth.css" />
   <section>
     <div class="container">
       <div class="user signinBx">
@@ -10,8 +11,8 @@
               <% }else{%>
                 <span class="alert-success"> <%= messages.success %></span>
                 <% } %>
-            <input type="text" name="name" placeholder="Name" />
-            <input type="email" name="email" placeholder="Email Address" />
+            <input type="text" name="name" value="<%= messages.name %>" placeholder="Name" />
+            <input type="email" name="email"  value="<%= messages.email %>" placeholder="Email Address" />
             <input type="password" name="password" placeholder="Create Password" />
             <input type="password" name="cpassword" placeholder="Confirm Password" />
             <input type="submit" value="Sign Up" />

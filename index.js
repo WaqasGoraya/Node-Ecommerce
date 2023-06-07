@@ -8,6 +8,7 @@ import flash from 'express-flash';
 import passport from 'passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import passportLocal from './config/passportConfig.js';
 const app = express();
 const port = process.env.port || 3300;
 const dburl = process.env.DB_URL;
@@ -27,17 +28,24 @@ app.use(session({
     store:mongostore,
     cookie:{maxAge: 10000 }
 }));
-app.use(passport.session());
+//flash
+app.use(flash());
+passportLocal(passport); 
 app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req,res,next)=>{
+    res.locals.session = req.session;
+    res.locals.user = req.user;
+    next();
+});
+
 app.use(express.static(path.join(process.cwd(),'public')));
 app.set('view engine','ejs');
 app.use(express.urlencoded({extended:false}));
 
 //DB connection
 CONNECT_DB(dburl);
-
-//flash
-app.use(flash());
 
 //Routes
 app.use('/',web);

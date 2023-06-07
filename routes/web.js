@@ -1,6 +1,7 @@
 import express from 'express';
 import homeController from '../controllers/homeController.js';
 import authController from '../controllers/authController.js';
+import guest from '../middleware/guest.js';
 const router = express.Router();
 
 router.get('/',homeController.index);
@@ -9,8 +10,11 @@ router.get('/shop',homeController.store);
 router.get('/contact',homeController.contact);
 
 //Auth Routes
-router.get('/register',authController.register);
+router.get('/register', guest, authController.register);
 router.post('/register',authController.saveUser);
-router.get('/login',authController.login);
+router.get('/login',guest, authController.login);
 router.post('/login',authController.auth);
+router.post('/logout',authController.logout);
+
+router.get('/verify/:token',authController.verify);
 export default router;
