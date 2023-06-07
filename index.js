@@ -5,6 +5,7 @@ import  path  from 'path';
 import web from './routes/web.js';
 import CONNECT_DB from './config/dbConfig.js';
 import flash from 'express-flash';
+import passport from 'passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 const app = express();
@@ -26,7 +27,8 @@ app.use(session({
     store:mongostore,
     cookie:{maxAge: 10000 }
 }));
-
+app.use(passport.session());
+app.use(passport.initialize());
 app.use(express.static(path.join(process.cwd(),'public')));
 app.set('view engine','ejs');
 app.use(express.urlencoded({extended:false}));
