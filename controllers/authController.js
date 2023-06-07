@@ -15,7 +15,7 @@ class authController {
                     const user = await userModel.findOne({email:email});
                 if(!user){
                     const hash = await bcrypt.hash(password,12);
-                    const token = jwt.sign({user:email},process.env.JWT_SECRET,{expiresIn:'15m'});
+                    const token = jwt.sign({user:email},process.env.JWT_SECRET,{expiresIn:'1d'});
                     const link = process.env.SITE_URL + '/verify/' + token;
                     const sent = await sendEmail(email,link);
                     if(sent){
