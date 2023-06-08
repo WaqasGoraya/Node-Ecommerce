@@ -26,7 +26,7 @@ app.use(session({
     saveUninitialized:false,
     resave:false,
     store:mongostore,
-    cookie:{maxAge: 10000 }
+    cookie:{maxAge: 1000 * 60 * 60 * 24 }
 }));
 //flash
 app.use(flash());

@@ -1,0 +1,116 @@
+<%- include("../../partials/header.ejs") %> <%-
+include("../../partials/sidebar.ejs") %>
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+          <div class="card">
+            <div class="card-header">
+              <h4>Add Product</h4>
+            </div>
+            <% if(message.success){ %>
+            <div class="alert alert-success"><%= message.success %></div>
+            <% }else if(message.fail) { %>
+            <div class="alert alert-danger"><%= message.fail %></div>
+            <% } %>
+            <div class="card-body">
+              <form action="" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label>Product Name</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-list-alt"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="pname"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Product Price</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-list-alt"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="pprice"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Stock</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-list-alt"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="qty"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Category</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-list-alt"></i>
+                      </div>
+                    </div>
+                   <select name="p_cat" id="p_cat" class="form-control">
+                    <% category.forEach(category => { %>
+                      <option value="<%= category._id%>"><%= category.name %></option>
+                    <% }) %>
+                    
+                   </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Product Image</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-image"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="productImg"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Product Description</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-image"></i>
+                      </div>
+                    </div>
+                    <textarea name="pdesc" id="" cols="30" rows="10" class="form-control"></textarea>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<%- include("../../partials/footer.ejs") %>

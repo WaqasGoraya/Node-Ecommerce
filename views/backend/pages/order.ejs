@@ -1,0 +1,58 @@
+<%- include("../partials/header.ejs") %> <%-
+include("../partials/sidebar.ejs") %>
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+          <div class="card">
+               <% if(message.success){ %>
+            <div class="alert alert-success"><%= message.success %></div>
+            <% }else if(message.fail) { %>
+            <div class="alert alert-danger"><%= message.fail %></div>
+            <% } %>
+            <div class="card-header" style="justify-content: space-between;">
+              <h4>All Orders</h4>
+          
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped" id="table-1">
+                 
+                    <thead>
+                        <th class="text-center">sr</th>
+                        <th class="text-center">Order Number</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Detail</th>
+                    </thead>
+                 
+
+                  <tbody>
+                    <% var sr=1 %>
+                    <% order.forEach(data=>{%>
+                      <tr class="text-center">
+                          <td><%= sr++ %></td>
+                          <td><%= data.orderNo  %></td>
+                          <td> 
+                            <% if(data.status == false){  %>
+                            <span class="badge badge-pill badge-primary">Process</span>
+                          <% }else{%>
+                            <span class="badge badge-pill badge-success">Complete</span>
+                          <%} %>
+                          </td>
+                          <td><a href="/admin/order_detail/<%=data.orderNo%>" class="btn btn-primary">Order Detail</a></td>
+                      </tr>
+                      <% }) %>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<%- include("../partials/footer.ejs") %>

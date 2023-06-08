@@ -4,6 +4,7 @@ import passport from "passport";
 import jwt from "jsonwebtoken";
 import sendEmail from "../email/sendConfirmEmail.js";
 class authController {
+ 
   static register = (req, res) => {
     res.render("pages/auth/register", { title: "Register" });
   };
@@ -22,16 +23,7 @@ class authController {
             });
             const user = await userDoc.save();
             if (user) {
-              const token = jwt.sign(
-                { user: user._id },
-                process.env.JWT_SECRET,
-                {
-                  expiresIn: "1d",
-                }
-              );
-              const link =
-                process.env.SITE_URL + "/verify/" + user._id + "/" + token;
-              await sendEmail(email, link);
+                await sendEmail(user._id,user.email);
               req.flash(
                 "success",
                 "Registration Success! Please check your email to verify"
@@ -95,33 +87,24 @@ class authController {
   };
   static verify = async (req, res) => {
     const { id, token } = req.params;
+    const user = await userModel.findById(id);
     try {
-      const user = await userModel.findById(id);
-      if (user) {
-        // const new_token = jwt.sign({ user: user._id }, process.env.JWT_SECRET);
-        const verify = jwt.verify(token, process.env.JWT_SECRET);
-        if (verify) {
+          jwt.verify(token, process.env.JWT_SECRET);
           await userModel.findByIdAndUpdate(user._id, { is_verified: true });
           res.redirect("/");
-        } else {
-          req.flash("error", "Link Expired!");
-          res.redirect("/register");
-        }
-      } else {
-        req.flash("error", "Email is incorrect");
-        res.redirect("/register");
-      }
     } catch (error) {
-      console.log("Token Error", error);
+      await sendEmail(id,user.email);
+      req.flash("error", 'Link Expired! a new link sent to your email please check and verify..');
+      res.redirect("/register");
     }
   };
   static logout = (req, res, next) => {
     req.logout(() => {
-      if (err) {
-        return next(err);
-      }
       res.redirect("/");
     });
   };
+  static profile = (req,res)=> {
+    res.render('backend/pages/profile');
+  }
 }
 export default authController;

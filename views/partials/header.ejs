@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/templatemo.css" />
     <link rel="stylesheet" href="assets/css/custom.css" />
+    <link rel="stylesheet" href="/css/style.css" />
 
     <!-- Load fonts style after rendering the layout styles -->
     <link
@@ -117,6 +118,14 @@
               <li class="nav-item">
                 <a class="nav-link" href="/contact">Contact</a>
               </li>
+              <% if(!user){ %>
+              <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Login">Login</a>
+              </li>
+              <% } %>
             </ul>
           </div>
           <div class="navbar align-self-center d-flex">
@@ -150,13 +159,23 @@
                 >7</span
               >
             </a>
-            <a class="nav-icon position-relative text-decoration-none" href="#">
-              <i class="fa fa-fw fa-user text-dark mr-3"></i>
-              <span
+            <% if(user){ %>
+              <div style="position: relative;">
+            <a class="nav-icon position-relative text-decoration-none auth-drop" href="#" >
+              <i class="fa fa-fw fa-user text-dark mr-3"></i><%= user.name %>
+            
+              <!-- <span
                 class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"
                 >+99</span
-              >
+              > -->
             </a>
+              <div class="dropdown-auth">
+                <a href="/profile"><i class="far fa-user"></i> Profile</a>
+                <form  method="post" action="/logout" id="log_form" style="cursor: pointer;">
+                <a href="#" onclick="document.getElementById('log_form').submit()"> <i class="fas fa-sign-out-alt"></i> Logout</a></form>
+              </div>
+            </div>
+            <% } %>.
           </div>
         </div>
       </div>

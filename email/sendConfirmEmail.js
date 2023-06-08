@@ -1,8 +1,11 @@
 import transporter from '../config/mailConfig.js';
 import ejs from 'ejs';
 import path from 'path';
+import jwt from 'jsonwebtoken';
 
-const sendEmail = async (email,link) => {
+const sendEmail = async (id,email) => {
+    const token = jwt.sign({ user: id },process.env.JWT_SECRET,{expiresIn: "2m",});
+    const link = process.env.SITE_URL + "/verify/" + id + "/" + token;
     const mail_data = await ejs.renderFile(path.join(process.cwd(),'/views/emails/user_verification.ejs'),{link:link});
     try {
         let info = await transporter.sendMail({
@@ -18,5 +21,4 @@ const sendEmail = async (email,link) => {
         console.log('Mail Error',error);
     }
 }
-
 export default sendEmail;

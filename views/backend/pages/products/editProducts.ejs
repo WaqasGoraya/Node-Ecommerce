@@ -1,0 +1,136 @@
+<%- include("../../partials/header.ejs") %> <%-
+include("../../partials/sidebar.ejs") %>
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+          <div class="card">
+            <div class="card-header">
+              <h4>Add Product</h4>
+            </div>
+            <% if(message.success){ %>
+            <div class="alert alert-success"><%= message.success %></div>
+            <% }else if(message.fail) { %>
+            <div class="alert alert-danger"><%= message.fail %></div>
+            <% } %>
+            <div class="card-body">
+              <form
+                action="/admin/edit-product/<%= product._id %>"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <input
+                  type="hidden"
+                  name="old_image"
+                  value="<%= product.image %>"
+                />
+                <input type="hidden" name="pid" value="<%= product._id %>" />
+                <div class="form-group">
+                  <label>Product Name</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-list-alt"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="pname"
+                      value="<%= product.name %>"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Product Price</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-list-alt"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="pprice"
+                      value="<%= product.price %>"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Stock</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-list-alt"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="qty"
+                      value="<%= product.stock %>"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Category</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-list-alt"></i>
+                      </div>
+                    </div>
+                    <select name="p_cat" id="p_cat" class="form-control">
+                      <% category.forEach(category => { %> <%
+                      if(category.name == product.category.name) { %>
+                      <option value="<%= category._id%>" selected ><%= category.name %></option>
+                      <% } else {%>
+                      <option value="<%= category._id%>"><%= category.name %></option>
+                       <% }}) %>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Product Image</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-image"></i>
+                      </div>
+                    </div>
+                    <input type="file" class="form-control" name="productImg" />
+                  </div>
+                  <img src="/uploads/<%= product.image %>" alt="" height="50px" width="50px"/>
+                </div>
+                <div class="form-group">
+                  <label>Product Description</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-image"></i>
+                      </div>
+                    </div>
+                    <textarea
+                      name="pdesc"
+                      id=""
+                      cols="30"
+                      rows="10"
+                      class="form-control"
+                    >
+<%= product.desc %></textarea
+                    >
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<%- include("../../partials/footer.ejs") %> >
