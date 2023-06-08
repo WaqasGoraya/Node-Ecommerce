@@ -16,5 +16,5 @@ router.get('/login',guest, authController.login);
 router.post('/login',authController.auth);
 router.post('/logout',authController.logout);
 
-router.get('/verify/:token',authController.verify);
+router.get('/verify/:id/:token',authController.verify);
 export default router;
