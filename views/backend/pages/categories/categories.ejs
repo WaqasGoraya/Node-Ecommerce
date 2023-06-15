@@ -19,10 +19,10 @@ include("../../partials/sidebar.ejs") %>
       <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
           <div class="card">
-            <% if(message.success){ %>
-            <div class="alert alert-success"><%= message.success %></div>
-            <% }else if(message.fail) { %>
-            <div class="alert alert-danger"><%= message.fail %></div>
+            <% if(messages.success){ %>
+            <div class="alert alert-success"><%= messages.success %></div>
+            <% }else if(messages.error) { %>
+            <div class="alert alert-danger"><%= messages.error %></div>
             <% } %>
             <div class="card-header">
               <div class="categorie-left"><h4>Categories</h4></div>
@@ -41,6 +41,7 @@ include("../../partials/sidebar.ejs") %>
                     <th>Image</th>
                     <th>Action</th>
                   </tr>
+                  <% if( categories != ''){ %>
                   <% var key = 1; %> <% categories.forEach(category =>{ %>
                   <tr>
                     <td><%= key %></td>
@@ -68,6 +69,12 @@ include("../../partials/sidebar.ejs") %>
                     </td>
                   </tr>
                   <% key++ }) %>
+                   <% }else{ %>
+                  <tr><td>
+                  <b>No Data Available!</b>
+                  </td>
+                  </tr>
+                  <% } %>    
                 </table>
               </div>
             </div>

@@ -9,11 +9,11 @@ include("../../partials/sidebar.ejs") %>
             <div class="card-header">
               <h4>Add Category</h4>
             </div>
-               <% if(message.success){ %>
-    <div class="alert alert-success"><%= message.success %></div>
-    <% }else if(message.fail) { %>
-    <div class="alert alert-danger"><%= message.fail %></div>
-    <% } %>
+               <% if(messages.success){ %>
+               <div class="alert alert-success"><%= messages.success %></div>
+               <% }else if(messages.error) { %>
+               <div class="alert alert-danger"><%= messages.error %></div>
+               <% } %>
             <div class="card-body">
               <form action="" method="post" enctype="multipart/form-data">
                 <div class="form-group">

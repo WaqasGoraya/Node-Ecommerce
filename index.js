@@ -3,6 +3,7 @@ env.config();
 import express from 'express';
 import  path  from 'path';
 import web from './routes/web.js';
+import adminRoutes from './routes/admin.js';
 import CONNECT_DB from './config/dbConfig.js';
 import flash from 'express-flash';
 import passport from 'passport';
@@ -42,6 +43,7 @@ app.use((req,res,next)=>{
 
 app.use(express.static(path.join(process.cwd(),'public')));
 app.set('view engine','ejs');
+app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
 //DB connection
@@ -49,7 +51,7 @@ CONNECT_DB(dburl);
 
 //Routes
 app.use('/',web);
-
+app.use('/admin',adminRoutes);
 
 
 app.listen(port,()=>{
