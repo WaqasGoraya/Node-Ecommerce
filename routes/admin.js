@@ -10,7 +10,7 @@ adminRoutes.get('/categories', categoryController.categories);
 adminRoutes.get('/add-category', categoryController.addCategory);
 adminRoutes.post('/add-category',upload.single('categoryImg'), categoryController.saveCategory);
 adminRoutes.get('/edit-category/:id', categoryController.editCategory);
-adminRoutes.get('/update-category', categoryController.updateCategory);
+adminRoutes.post('/edit-category/:id',upload.single('categoryImg'), categoryController.updateCategory);
 adminRoutes.get('/del-category/:id', categoryController.deleteCategory);
 
 //Products Routes

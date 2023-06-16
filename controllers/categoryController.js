@@ -11,23 +11,44 @@ class categoryController{
       try {
         const { categoryName } = req.body;
         const image = req.file;
+        if(!categoryName || !image){
+            req.flash('error','Please enter name and upload image!');
+            res.redirect('/admin/add-category');
+        }else{
+            const cateDoc = new categoryModel({
+                name:categoryName,
+                image: req.file.filename
+            });
+            await cateDoc.save();
+            req.flash('success','Category added Success!');
+            res.redirect('/admin/categories');
+        }
         
    
       } catch (err) {
         console.log(err)
       }
-    
-        // if(categoryName && image){
-
-        // }else{
-        //   req.flash('error','Enter name and upload image to proceed!');
-        //   res.redirect('/admin/add-category');
-        // }
     }
     static editCategory = async(req,res) => {
-
+      try {
+           const{id} = req.params;
+     const category = await categoryModel.findById(id);
+      res.render('backend/pages/categories/editCategory',{category:category});
+      } catch (error) {
+        console.log(error);
+      }
     }
     static updateCategory = async(req,res) => {
+      console.log(req.body);
+      try {
+          const {cat_id,old_image,categoryName} = req.body;
+          if(req.file){
+              old_image = req.file.filename;
+              
+          }
+      } catch (error) {
+        console.log(error);
+      }
 
     }
     static deleteCategory = async(req,res) => {
