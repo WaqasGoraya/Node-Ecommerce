@@ -1,4 +1,5 @@
 import categoryModel from "../models/categoryModel.js";
+import fs from 'fs';
 class categoryController{
      static categories = async(req,res) => {
       const categories =  await categoryModel.find();
@@ -23,15 +24,13 @@ class categoryController{
             req.flash('success','Category added Success!');
             res.redirect('/admin/categories');
         }
-        
-   
       } catch (err) {
         console.log(err)
       }
     }
     static editCategory = async(req,res) => {
       try {
-           const{id} = req.params;
+     const{id} = req.params;
      const category = await categoryModel.findById(id);
       res.render('backend/pages/categories/editCategory',{category:category});
       } catch (error) {
@@ -39,12 +38,29 @@ class categoryController{
       }
     }
     static updateCategory = async(req,res) => {
-      console.log(req.body);
       try {
           const {cat_id,old_image,categoryName} = req.body;
+          let updated_image = old_image;
           if(req.file){
-              old_image = req.file.filename;
-              
+              updated_image = req.file.filename;
+              fs.unlink(`public/images/${old_image}`,(err)=>{
+                if(err){
+                  console.log(err);
+                }else{
+                  console.log('deleted old image');
+                }
+              });
+          }
+          const updated_cat = await categoryModel.findByIdAndUpdate(cat_id,{
+            name:categoryName,
+            image: updated_image
+          });
+          if(updated_cat){
+            req.flash('success','Category Updated Successfully!');
+            res.redirect('/admin/categories');
+          }else{
+            req.flash('error','Something went wrong!Please try again');
+            res.redirect('/admin/categories');
           }
       } catch (error) {
         console.log(error);
@@ -52,7 +68,19 @@ class categoryController{
 
     }
     static deleteCategory = async(req,res) => {
-        
+      try {
+        const {id} = req.params;
+        const deleted = await categoryModel.findByIdAndDelete(id);
+        if(deleted){
+          req.flash('success','Category Deleted Successfully!');
+          res.redirect('/admin/categories');
+        }else{
+          req.flash('error','Something went wrong!Please try again');
+          res.redirect('/admin/categories');
+        }
+      } catch (error) {
+        console.log(error);
+      }  
     }
 }
 
