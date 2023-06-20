@@ -88,7 +88,25 @@ include("../../partials/sidebar.ejs") %>
                     <input
                       type="file"
                       class="form-control"
-                      name="productImg"
+                      name="image"
+                      accept=".jpg, .jpeg, .png"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Image Gallary</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-image"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="gallery"
+                      accept=".jpg, .jpeg, .png"
+                      multiple
                     />
                   </div>
                 </div>
@@ -101,6 +119,17 @@ include("../../partials/sidebar.ejs") %>
                       </div>
                     </div>
                     <textarea name="pdesc" id="" cols="30" rows="10" class="form-control"></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Featured Product</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-image"></i>
+                      </div>
+                    </div>
+                    <input type="checkbox" name="feature" value="on"  class="form-control" />
                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>

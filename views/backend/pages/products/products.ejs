@@ -36,7 +36,7 @@ include("../../partials/sidebar.ejs") %>
                     <td><%= product.price %></td>
                     <td><%= product.stock %></td>
                     <td><%= product.category.name %></td>
-                    <td><img src="/uploads/<%= product.image %>" alt="" height="50px" width="50px"></td>
+                    <td><img src="/images/<%= product.image %>" alt="" height="50px" width="50px"></td>
                     <td>
                       <a href="/admin/edit-product/<%= product._id%>" class="btn btn-primary">Edit</a>
                       <a href="/admin/delete-product/<%= product._id%>" class="btn btn-danger">Delete</a>

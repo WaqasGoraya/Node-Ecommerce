@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/',homeController.index);
 router.get('/about',homeController.about);
 router.get('/shop',homeController.store);
+router.get('/product/:id',homeController.singleProduct);
 router.get('/contact',homeController.contact);
 
 //Auth Routes

@@ -9,10 +9,10 @@ include("../../partials/sidebar.ejs") %>
             <div class="card-header">
               <h4>Add Product</h4>
             </div>
-            <% if(message.success){ %>
-            <div class="alert alert-success"><%= message.success %></div>
-            <% }else if(message.fail) { %>
-            <div class="alert alert-danger"><%= message.fail %></div>
+            <% if(messages.success){ %>
+            <div class="alert alert-success"><%= messages.success %></div>
+            <% }else if(messages.error) { %>
+            <div class="alert alert-danger"><%= messages.error %></div>
             <% } %>
             <div class="card-body">
               <form
@@ -100,9 +100,9 @@ include("../../partials/sidebar.ejs") %>
                         <i class="fa fa-image"></i>
                       </div>
                     </div>
-                    <input type="file" class="form-control" name="productImg" />
+                    <input type="file" class="form-control" name="image" />
                   </div>
-                  <img src="/uploads/<%= product.image %>" alt="" height="50px" width="50px"/>
+                  <img src="/images/<%= product.image %>" alt="" height="50px" width="50px"/>
                 </div>
                 <div class="form-group">
                   <label>Product Description</label>
@@ -118,9 +118,18 @@ include("../../partials/sidebar.ejs") %>
                       cols="30"
                       rows="10"
                       class="form-control"
-                    >
-<%= product.desc %></textarea
-                    >
+                    ><%= product.desc %></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Featured Product</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-image"></i>
+                      </div>
+                    </div>
+                    <input type="checkbox" name="feature" class="form-control" <% if(product.is_featured == true){ %> checked <% } %> />
                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>

@@ -12,17 +12,17 @@ adminRoutes.use(is_admin);
 //Category Routes
 adminRoutes.get('/categories', categoryController.categories);
 adminRoutes.get('/add-category', categoryController.addCategory);
-adminRoutes.post('/add-category',upload.single('categoryImg'), categoryController.saveCategory);
+adminRoutes.post('/add-category',upload, categoryController.saveCategory);
 adminRoutes.get('/edit-category/:id', categoryController.editCategory);
-adminRoutes.post('/edit-category/:id',upload.single('categoryImg'), categoryController.updateCategory);
+adminRoutes.post('/edit-category/:id',upload, categoryController.updateCategory);
 adminRoutes.get('/delete-category/:id', categoryController.deleteCategory);
 
 //Products Routes
 adminRoutes.get('/products',productController.products);
 adminRoutes.get('/add-product',productController.addProduct);
-adminRoutes.post('/add-product',productController.saveProduct);
+adminRoutes.post('/add-product',upload,productController.saveProduct);
 adminRoutes.get('/edit-product/:id',productController.editProduct);
-adminRoutes.post('/edit-product/:id',productController.updateProduct);
-adminRoutes.get('/delete-product',productController.deleteProduct);
+adminRoutes.post('/edit-product/:id',upload,productController.updateProduct);
+adminRoutes.get('/delete-product/:id',productController.deleteProduct);
 
 export default adminRoutes;

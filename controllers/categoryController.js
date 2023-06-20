@@ -11,14 +11,14 @@ class categoryController{
     static saveCategory = async(req,res) => {
       try {
         const { categoryName } = req.body;
-        const image = req.file;
+        const image = req.files.image;
         if(!categoryName || !image){
             req.flash('error','Please enter name and upload image!');
             res.redirect('/admin/add-category');
         }else{
             const cateDoc = new categoryModel({
                 name:categoryName,
-                image: req.file.filename
+                image: image[0].filename
             });
             await cateDoc.save();
             req.flash('success','Category added Success!');
@@ -70,6 +70,17 @@ class categoryController{
     static deleteCategory = async(req,res) => {
       try {
         const {id} = req.params;
+        const category = await categoryModel.findById(id);
+        if(category){
+          let image = category.image;
+          fs.unlink(`public/images/${image}`,(err)=>{
+            if(err){
+              console.log(err)
+            }else{
+              console.log('Category Image Deleted!');
+            }
+          })
+        }
         const deleted = await categoryModel.findByIdAndDelete(id);
         if(deleted){
           req.flash('success','Category Deleted Successfully!');
