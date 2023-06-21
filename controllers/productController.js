@@ -49,7 +49,7 @@ class productController{
                     desc:pdesc,
                     image:productImg,
                     gallery:GImages,
-                    feature:featured
+                    is_featured:featured
                 });
                 await productDoc.save();
                 req.flash('success','product added successfully!');
@@ -97,7 +97,7 @@ class productController{
                     category:p_cat,
                     desc:pdesc,
                     image:image,
-                    feature:featured
+                    is_featured:featured
             });
             if(updated){
                 req.flash('success','Product Updated Successfully!');
